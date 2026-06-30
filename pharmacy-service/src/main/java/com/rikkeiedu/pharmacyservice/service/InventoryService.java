@@ -6,13 +6,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class InventoryService {
 
-    @CircuitBreaker(name = "warehouseCB", fallbackMethod = "fallbackCheckInventory")
-    public String checkInventory(String medicineId) {
+    @CircuitBreaker(name = "warehouseCB", fallbackMethod = "checkWarehouseFallback")
+    public String checkInventory() {
         // Simulate a call to warehouse-service that fails
         throw new RuntimeException("Warehouse service is down");
     }
 
-    public String fallbackCheckInventory(String medicineId, Throwable t) {
-        return "Fallback: Inventory check failed for " + medicineId + ". Reason: " + t.getMessage();
+    public String checkWarehouseFallback(Exception e) {
+        return "Không thể kết nối kho tổng. Hệ thống sẽ sử dụng dữ liệu tồn kho cục bộ để tiếp tục giao dịch";
     }
 }

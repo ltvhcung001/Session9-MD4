@@ -14,8 +14,8 @@ public class InventoryController {
     @Autowired
     private InventoryService inventoryService;
 
-    @GetMapping("/check/{medicineId}")
-    public String checkInventory(@PathVariable String medicineId) {
-        return inventoryService.checkInventory(medicineId);
+    @GetMapping("/check")
+    public String checkInventory() {
+        return inventoryService.checkInventory();
     }
 }
